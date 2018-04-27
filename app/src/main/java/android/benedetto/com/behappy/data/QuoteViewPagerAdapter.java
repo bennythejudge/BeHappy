@@ -17,11 +17,11 @@ public class QuoteViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 0;
+        return this.fragments.size();
     }
 
     @Override
     public Fragment getItem(int position) {
-        return null;
+        return this.fragments.get(position);
     }
 }
