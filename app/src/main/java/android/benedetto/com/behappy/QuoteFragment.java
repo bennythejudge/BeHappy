@@ -1,6 +1,7 @@
 package android.benedetto.com.behappy;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
@@ -12,7 +13,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -24,6 +27,8 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class QuoteFragment extends Fragment {
 
+    String quote = null;
+    String author = null;
 
     public QuoteFragment() {
         // Required empty public constructor
@@ -40,8 +45,8 @@ public class QuoteFragment extends Fragment {
         TextView byAuthor = quoteView.findViewById(R.id.byAuthor);
         CardView cardView = quoteView.findViewById(R.id.cardview);
 
-        String quote = getArguments().getString("quote");
-        String author = getArguments().getString("author");
+        quote = getArguments().getString("quote");
+        author = getArguments().getString("author");
 
         int colors[] = new int[] {
                 R.color.md_amber_500,
@@ -60,7 +65,18 @@ public class QuoteFragment extends Fragment {
         byAuthor.setText("-" + author);
 
         // the share button?
-        
+        Button shareBtn = quoteView.findViewById(R.id.shareButton);
+        shareBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "clicked on share button", Toast.LENGTH_SHORT).show();
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, quote + " " + author);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+            }
+        });
 
 
 
