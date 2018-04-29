@@ -8,7 +8,7 @@ public class Quote {
         return author;
     }
 
-    private String getQuote() {
+    public String getQuote() {
         return quote;
     }
 

@@ -18,7 +18,10 @@ import java.util.ArrayList;
 public class QuoteData {
     ArrayList<Quote> quoteArrayList = new ArrayList<>();
 
-    public void getQuotes() {
+    // here Paulo created a callback interface to deal with the asynchronous nature of the
+    // HTTP call
+
+    public void getQuotes(final QuoteListAsyncResponse callBack) {
         String url =
                 "https://raw.githubusercontent.com/pdichone/UIUX-Android-Course/master/Quotes.json%20";
 
@@ -42,6 +45,10 @@ public class QuoteData {
                         e.printStackTrace();
                     }
                 }
+
+                // only when the HTTP call is done, we call the callback method
+                if (null != callBack) callBack.processFinished(quoteArrayList);
+
             }
         }, new Response.ErrorListener() {
             @Override
